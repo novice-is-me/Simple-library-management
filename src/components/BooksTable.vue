@@ -4,6 +4,8 @@ import { inject } from 'vue';
 const availableBooks = inject('availableBooks');
 console.log(availableBooks.value);
 
+// get the user and check if admin or not, then assigned it to the availableBooks, if admin then all books will be shown
+
 </script>
 
 <template>
