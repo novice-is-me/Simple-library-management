@@ -1,5 +1,10 @@
 <script setup>
 
+const links = [
+    { name: 'Home', path: '/' },
+    { name: 'Books', path: '/books' },
+    { name: 'Manage', path: '/admin' }
+]
 </script>
 
 <template>
@@ -12,10 +17,9 @@
                     </div>
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
-                            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <router-link to="/" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Home</router-link>
-                            <router-link to="/books" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Books</router-link>
-                            <router-link to="/admin" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Manage</router-link>
+                             <router-link v-for="link in links" :key="link.name" :to="link.path" class="rounded-md px-3 py-2 text-sm font-medium text-white" active-class=" bg-gray-900"  aria-current="page">
+                                {{ link.name }}
+                             </router-link>
                         </div>
                     </div>
                 </div>
