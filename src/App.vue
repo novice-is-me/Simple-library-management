@@ -7,24 +7,30 @@ const allBooks = ref(booksData.booksData)
 const availableBooks = ref()
 const user = ref([])
 
-onMounted(() => {
-  getAvailBooks()
+onMounted( async () => {
+  await getAvailBooks()
 
+  console.log('User1:', user.value)
   // Getting user from local storage
-  const storedUser = JSON.parse(localStorage.getItem('user'))
+  const storedUser = JSON.parse(localStorage.getItem('users'))
   if(storedUser){
     user.value = storedUser
   }
+
+  console.log('User2:', user.value)
 })
+
+console.log('User3:', user.value)
 
 // For registration user
 const registerUser = (newUser) => {
-  user.value.push({
+  const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+  storedUsers.push({
     name: newUser.name,
     password: newUser.password,
-    isAdmin: false
-  })
-  localStorage.setItem('users', JSON.stringify(user.value))
+    isAdmin: newUser.isAdmin
+  });
+  localStorage.setItem('users', JSON.stringify(storedUsers));
 }
 
 // For available books only
