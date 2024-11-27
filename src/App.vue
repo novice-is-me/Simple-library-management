@@ -6,6 +6,7 @@ import { onMounted, provide, ref } from 'vue'
 const allBooks = ref(booksData.booksData)
 const availableBooks = ref()
 const user = ref([])
+const loginUser = JSON.parse(localStorage.getItem('loginUser'))
 
 onMounted( async () => {
   await getAvailBooks()
@@ -19,8 +20,6 @@ onMounted( async () => {
 
   console.log('User2:', user.value)
 })
-
-console.log('User3:', user.value)
 
 // For registration user
 const registerUser = (newUser) => {
@@ -45,6 +44,7 @@ const getAvailBooks = () => {
 provide('availableBooks', availableBooks)
 provide('user', user)
 provide('register', registerUser)
+provide('loginUser', loginUser)
 
 </script>
 

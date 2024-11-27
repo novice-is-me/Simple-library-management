@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 
 
 const user = inject('user');
-const router =useRouter();
+const router = useRouter();
 const dataLogin = {
     email: '',
     password: ''
@@ -15,12 +15,13 @@ const login = () => {
    for(let i = 0; i < user.value.length; i++){
         if(user.value[i].name === dataLogin.email && user.value[i].password === dataLogin.password){
             console.log('Login success');
+            // Set the login user to local storage
+            localStorage.setItem('loginUser', JSON.stringify(user.value[i]));
             router.push('/books');
         }else{
             console.log('Login failed');
         }
    }
-
 }
 </script>
 

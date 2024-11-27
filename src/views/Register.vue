@@ -24,8 +24,6 @@ const registerUser = () => {
         router.push('/');
     }
 }
-
-
 </script>
 
 <template>
