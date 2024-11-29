@@ -18,9 +18,7 @@ onMounted( async () => {
     user.value = storedUser
   }
 
-  console.log('User2:', user.value)
 })
-
 // For registration user
 const registerUser = (newUser) => {
   const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
@@ -40,11 +38,20 @@ const getAvailBooks = () => {
   return availableBooks.value
 }
 
+// For updating the books
+const updateBookDetails = (updatedInfo, index) => {
+  console.log('App index', index)
+  availableBooks.value.name = updatedInfo.name;
+  availableBooks.value.genre = updatedInfo.genre;
+  availableBooks.value.status = updatedInfo.status;
+}
+
 // Passing data to child components
 provide('availableBooks', availableBooks)
 provide('user', user)
 provide('register', registerUser)
 provide('loginUser', loginUser)
+provide('updateBookDetails', updateBookDetails);
 
 </script>
 

@@ -1,5 +1,5 @@
 <script setup>
-import { inject } from 'vue';
+import { inject, onMounted } from 'vue';
 import Modal from './Modal.vue';
 import DeleteModal from './DeleteModal.vue';
 import EditModal from './EditModal.vue';
@@ -9,6 +9,13 @@ const user = inject('user');
 const loginUser = inject('loginUser');
 console.log(availableBooks.value);
 console.log(loginUser);
+
+// Check to see if the login user is an admin or not
+onMounted(() => {
+    if(loginUser.isAdmin === false){
+        console.log('You are not an admin'); 
+    }
+})
 </script>
 
 <template>
@@ -32,7 +39,7 @@ console.log(loginUser);
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-black">{{ book.status }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                     <Modal :name="book.name" :genre="book.genre" :status="book.status"/>
-                                    <EditModal />
+                                    <EditModal :index="book.index" :name="book.name" :genre="book.genre" :status="book.status"/>
                                     <a v-if="loginUser.admin" class="me-2 
                                     hover:cursor-pointer bg-green-400 px-3 py-2 rounded"
                                     >Edit</a>

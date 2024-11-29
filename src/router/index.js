@@ -1,3 +1,4 @@
+import EditModal from '@/components/EditModal.vue'
 import AdminView from '@/views/AdminView.vue'
 import AvailableBooks from '@/views/AvailableBooks.vue'
 import Login from '@/views/Login.vue'
@@ -17,6 +18,9 @@ const router = createRouter({
     },{
       path: '/books',
       component: AvailableBooks,
+      children: [
+        { path: ':index/edit', component: EditModal, props: true }
+      ]
     },{
       path: '/admin',
       component: AdminView,
