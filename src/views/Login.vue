@@ -1,27 +1,29 @@
-<script setup>
+<script>
+import { useUserStore } from '@/stores/UserStore';
 import { inject } from 'vue';
 import { useRouter } from 'vue-router';
 
+export default {
+    setup(){
+        const userStore = useUserStore();
+        
+        const router = useRouter();
 
-const user = inject('user');
-const router = useRouter();
-const dataLogin = {
-    email: '',
-    password: ''
-}
-
-const login = () => {
-   // Loop through the user array then check if the dataLogin is equal to the user array
-   for(let i = 0; i < user.value.length; i++){
-        if(user.value[i].name === dataLogin.email && user.value[i].password === dataLogin.password){
-            console.log('Login success');
-            // Set the login user to local storage
-            localStorage.setItem('loginUser', JSON.stringify(user.value[i]));
-            router.push('/books');
-        }else{
-            console.log('Login failed');
+        const dataLogin = {
+            email: '',
+            password: ''
         }
-   }
+        const login = () => {
+            userStore.loginUser(dataLogin);
+            router.push('/books');
+        }
+
+        return {
+            dataLogin,
+            login
+        }
+    },
+    
 }
 </script>
 
@@ -37,8 +39,8 @@ const login = () => {
                     <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
                     <div class="mt-2">
                         <input 
-                            v-model="dataLogin.email"
-                            id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                        v-model="dataLogin.email"
+                        id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
                     </div>
                 </div>
                 
@@ -48,8 +50,8 @@ const login = () => {
                     </div>
                     <div class="mt-2">
                         <input 
-                            v-model="dataLogin.password"
-                            id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                        v-model="dataLogin.password"
+                        id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
                     </div>
                 </div>
                 

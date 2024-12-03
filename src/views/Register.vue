@@ -1,27 +1,36 @@
-<script setup>
+<script>
 import { inject, ref } from 'vue';
 import { useToast } from 'vue-toastification';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/UserStore';
 
-const users = inject('user');
-const register = inject('register');
-const toast = useToast();
-const router = useRouter();
+export default {
+    setup(){
+        const toast = useToast();
+        const router = useRouter();
+        const userStore = useUserStore();
+        
+        const newUser = {
+            name: '',
+            password: '',
+            isAdmin: false
+        }
+        
+        const registerUser = () => {
+            if(!newUser.name && !newUser.password){
+                alert('Please fill all fields');
+                return;
+            }else{
+                userStore.registerUser(newUser)
+                toast.success('User registered successfully');
+                router.push('/');
+            }
+        }
 
-const newUser = {
-    name: '',
-    password: '',
-    isAdmin: false
-}
-
-const registerUser = () => {
-    if(!newUser.name && !newUser.password){
-        alert('Please fill all fields');
-        return;
-    }else{
-        register(newUser)
-        toast.success('User registered successfully');
-        router.push('/');
+        return {
+            newUser,
+            registerUser
+        }
     }
 }
 </script>

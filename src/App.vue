@@ -2,13 +2,13 @@
 import Navbar from './components/Navbar.vue'
 import { onMounted, provide, ref } from 'vue'
 
-const allBooks = ref(booksData.booksData)
+// const allBooks = ref(booksData.booksData)
 const availableBooks = ref()
 const user = ref([])
 const loginUser = JSON.parse(localStorage.getItem('loginUser'))
-const books = JSON.parse(localStorage.getItem('books'))
+// const books = JSON.parse(localStorage.getItem('books'))
 
-import booksData from './data'
+
 onMounted( async () => {
   // await getAvailBooks()
   
@@ -20,7 +20,7 @@ onMounted( async () => {
     user.value = storedUser
   }
 
-  console.log('Books', books)
+  // console.log('Books', books)
 })
 
 // For registration user
@@ -46,19 +46,19 @@ const registerUser = (newUser) => {
 // }
 
 // For updating the books
-const updateBookDetails = (updatedInfo, index) => {
-  console.log('App index', index)
-  availableBooks.value.name = updatedInfo.name;
-  availableBooks.value.genre = updatedInfo.genre;
-  availableBooks.value.status = updatedInfo.status;
-}
+// const updateBookDetails = (updatedInfo, index) => {
+//   console.log('App index', index)
+//   availableBooks.value.name = updatedInfo.name;
+//   availableBooks.value.genre = updatedInfo.genre;
+//   availableBooks.value.status = updatedInfo.status;
+// }
 
 // Passing data to child components
 // provide('availableBooks', availableBooks)
 provide('user', user)
 provide('register', registerUser)
 provide('loginUser', loginUser)
-provide('updateBookDetails', updateBookDetails);
+// provide('updateBookDetails', updateBookDetails);
 
 </script>
 
