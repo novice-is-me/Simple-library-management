@@ -1,21 +1,26 @@
-<script setup>
-import { inject, onMounted } from 'vue';
+<script>
+import { useBookStore } from '@/stores/BookStore';
 import Modal from './Modal.vue';
 import DeleteModal from './DeleteModal.vue';
 import EditModal from './EditModal.vue';
 
-const availableBooks = inject('availableBooks');
-const user = inject('user');
-const loginUser = inject('loginUser');
-console.log(availableBooks.value);
-console.log(loginUser);
-
-// Check to see if the login user is an admin or not
-onMounted(() => {
-    if(loginUser.isAdmin === false){
-        console.log('You are not an admin'); 
+export default {
+    components: {
+        Modal,
+        DeleteModal,
+        EditModal
+    },
+    setup(){
+        const bookStore = useBookStore();
+        
+        const { getAvailBooks } = bookStore;
+        
+        return {
+            bookStore,
+            getAvailBooks
+        }
     }
-})
+}
 </script>
 
 <template>
@@ -33,18 +38,14 @@ onMounted(() => {
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                            <tr v-for="book in availableBooks" :key="book.name">
+                            <tr v-for="book in getAvailBooks" :key="book.name">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-black">{{ book.name }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-black">{{ book.genre }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-black">{{ book.status }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                     <Modal :name="book.name" :genre="book.genre" :status="book.status"/>
                                     <EditModal :index="book.index" :name="book.name" :genre="book.genre" :status="book.status"/>
-                                    <a v-if="loginUser.admin" class="me-2 
-                                    hover:cursor-pointer bg-green-400 px-3 py-2 rounded"
-                                    >Edit</a>
                                     <DeleteModal />
-                                    <a v-if="loginUser.admin" class=" hover:cursor-pointer bg-red-400 px-3 py-2 rounded">Delete</a>
                                 </td>
                             </tr>
                         </tbody>
