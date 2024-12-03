@@ -4,8 +4,7 @@ import { useRouter } from 'vue-router';
 
 export default {
     setup(){
-        const userStore = useUserStore();
-        
+        const user = useUserStore();
         const router = useRouter();
 
         const dataLogin = {
@@ -13,8 +12,8 @@ export default {
             password: ''
         }
         const login = () => {
-            userStore.loginUser(dataLogin);
-            // router.push('/books');
+            user.loginUser(dataLogin);
+            router.push('/books');
         }
 
         return {

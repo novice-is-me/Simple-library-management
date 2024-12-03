@@ -3,16 +3,25 @@ import { defineStore } from "pinia";
 export const useUserStore = defineStore('userStore', {
     state: () => ({
         users: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [],
+        loginUserData: null
     }),
     getters: {
         getUser(){
             return this.users
         },
+        getLoginUser(){
+            return this.loginUserData = JSON.parse(localStorage.getItem('loginUser'))
+        },
         isAdmin(){
             const isAdmin = JSON.parse(localStorage.getItem('loginUser'))
-            if(isAdmin.isAdmin === true){
-                console.log(isAdmin)
-                return this.users
+            console.log(isAdmin)
+            if(isAdmin != null){
+                if(isAdmin.isAdmin === true){
+                    console.log(isAdmin)
+                    return this.users
+                }else{
+                    this.users.isAdmin = false
+                }
             }
         }
     },
@@ -34,6 +43,9 @@ export const useUserStore = defineStore('userStore', {
             });
             localStorage.setItem('users', JSON.stringify(storedUsers));
             console.log('User registered')
+        },
+        logoutUser(){
+            localStorage.removeItem('loginUser')
         }
     }
 })
