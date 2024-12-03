@@ -12,16 +12,16 @@ export default {
         DeleteModal,
         EditModal
     },
-    setup(){
-        const bookStore = useBookStore();
+    props: {
+        books: Object
+    },
+    setup(props){
         const user = useUserStore();
         const isAdmin = user.isAdmin;
 
-        const getAvailBooks = computed(() => bookStore.getAvailBooks);
+        console.log('Books:', props.books)
 
         return {
-            bookStore,
-            getAvailBooks,
             isAdmin
         }
     }
@@ -43,7 +43,7 @@ export default {
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                            <tr v-for="book in getAvailBooks" :key="book.name">
+                            <tr v-for="book in books" :key="book.name">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-black">{{ book.name }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-black">{{ book.genre }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-black">{{ book.status }}</td>

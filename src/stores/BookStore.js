@@ -39,6 +39,9 @@ export const useBookStore = defineStore('bookStore', {
         getAvailBooks(){
             return this.books.filter(book => book.status === 'Available')
         },
+        getAllBooks(){
+            return this.books
+        }
     },
     actions: {
         updateBookDetails(updatedInfo, bookId){

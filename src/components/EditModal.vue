@@ -42,7 +42,6 @@ export default {
                 toggleModal();
             }
         }
-        console.log('Book Data:', bookData.value);
 
         return {
             isModalOpen,
