@@ -1,10 +1,24 @@
-<script setup>
+<script >
+import { useUserStore } from '@/stores/UserStore';
 
-const links = [
-    { name: 'Home', path: '/' },
-    { name: 'Books', path: '/books' },
-    { name: 'Manage', path: '/admin' }
-]
+export default{
+    setup(){
+        const user = useUserStore();
+        const isAdmin = user.isAdmin;
+        
+        console.log('isAdmin:', isAdmin);
+        const links = [
+            { name: 'Home', path: '/'},
+            { name: 'Books', path: '/books'},
+        ]
+
+        return {
+            links,
+            isAdmin
+        }
+        
+    }
+}
 </script>
 
 <template>
@@ -17,9 +31,10 @@ const links = [
                     </div>
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
-                             <router-link v-for="link in links" :key="link.name" :to="link.path" class="rounded-md px-3 py-2 text-sm font-medium text-white" active-class=" bg-gray-900"  aria-current="page">
+                            <router-link v-for="link in links" :key="link.name" :to="link.path" class="rounded-md px-3 py-2 text-sm font-medium text-white" active-class=" bg-gray-900"  aria-current="page">
                                 {{ link.name }}
-                             </router-link>
+                            </router-link>
+                            <router-link :to="'/admin'" v-if="isAdmin" class="rounded-md px-3 py-2 text-sm font-medium text-white" active-class=" bg-gray-900"  aria-current="page">Manage</router-link>
                         </div>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ import Modal from './Modal.vue';
 import DeleteModal from './DeleteModal.vue';
 import EditModal from './EditModal.vue';
 import { computed, onMounted } from 'vue';
+import { useUserStore } from '@/stores/UserStore';
 
 export default {
     components: {
@@ -13,11 +14,15 @@ export default {
     },
     setup(){
         const bookStore = useBookStore();
-        
+        const user = useUserStore();
+        const isAdmin = user.isAdmin;
+
         const getAvailBooks = computed(() => bookStore.getAvailBooks);
+
         return {
             bookStore,
-            getAvailBooks
+            getAvailBooks,
+            isAdmin
         }
     }
 }
@@ -44,8 +49,8 @@ export default {
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-black">{{ book.status }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                     <Modal :name="book.name" :genre="book.genre" :status="book.status"/>
-                                    <EditModal :index="book.index" :name="book.name" :genre="book.genre" :status="book.status"/>
-                                    <DeleteModal :index="book.index" />
+                                    <EditModal v-if="isAdmin" :index="book.index" :name="book.name" :genre="book.genre" :status="book.status"/>
+                                    <DeleteModal v-if="isAdmin" :index="book.index" />
                                 </td>
                             </tr>
                         </tbody>
