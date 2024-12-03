@@ -49,6 +49,9 @@ export const useBookStore = defineStore('bookStore', {
                     this.books[i].status = updatedInfo.status 
                 }
             }
+        },
+        deleteBook(bookId){
+            return this.books = this.books.filter(book => book.index !== bookId)
         }
     }
 })

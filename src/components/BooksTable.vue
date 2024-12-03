@@ -3,6 +3,7 @@ import { useBookStore } from '@/stores/BookStore';
 import Modal from './Modal.vue';
 import DeleteModal from './DeleteModal.vue';
 import EditModal from './EditModal.vue';
+import { computed, onMounted } from 'vue';
 
 export default {
     components: {
@@ -13,8 +14,7 @@ export default {
     setup(){
         const bookStore = useBookStore();
         
-        const { getAvailBooks } = bookStore;
-        
+        const getAvailBooks = computed(() => bookStore.getAvailBooks);
         return {
             bookStore,
             getAvailBooks
@@ -45,7 +45,7 @@ export default {
                                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                                     <Modal :name="book.name" :genre="book.genre" :status="book.status"/>
                                     <EditModal :index="book.index" :name="book.name" :genre="book.genre" :status="book.status"/>
-                                    <DeleteModal />
+                                    <DeleteModal :index="book.index" />
                                 </td>
                             </tr>
                         </tbody>
