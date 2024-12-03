@@ -1,6 +1,5 @@
 <script>
 import { useUserStore } from '@/stores/UserStore';
-import { inject } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default {
