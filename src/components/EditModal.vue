@@ -43,12 +43,17 @@ export default {
             }
         }
 
+        const updateStatus = (status) => {
+            bookData.value.status = status;
+        }
+
         return {
             isModalOpen,
             toggleModal,
             bookData,
             handleEdit,
-            submitUpdate
+            submitUpdate,
+            updateStatus
         }
     }
 }
@@ -90,7 +95,7 @@ class="fixed inset-0 bg-black bg-opacity-50 z-[80] flex items-center justify-cen
                     <label for="username" class="block text-sm/6 font-medium text-gray-900 text-start">Status</label>
                     <div class="mt-2">
                         <div class="flex rounded-md shadow-sm ">
-                            <Dropdown :status="bookData.status" />
+                            <Dropdown :status="bookData.status" @updateStatus="updateStatus"/>
                         </div>
                     </div>
                 </div>
